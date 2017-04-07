@@ -11,13 +11,13 @@ TARG = ProjectOne.exe
 SRC = src/main.cpp
 
 #The lib dependencies:
-LIB = glfw3
+LIB = glfw3 opengl32
 
 #The Object files:
 OBJ = main.o
  
 all: $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARG) $(OBJ) -L. -l$(LIB)
+	$(CC) $(CFLAGS) -o $(TARG) $(OBJ) -L./dep/ -l$(LIB)
 
 $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC)
