@@ -17,7 +17,7 @@ INCLUDES = -I./include
 LFLAGS = -L./dep 
 
 #The libraries.
-LIBS = -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
+LIBS = -lGL -lGLU -lGLEW -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 
 #The Object files:
 OBJ = main.o
