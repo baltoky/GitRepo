@@ -10,17 +10,29 @@ TARG = ProjectOne.exe
 #The Source Code:
 SRC = src/main.cpp
 
-#The lib dependencies:
-LIB = glfw3 opengl32
+#The path to the include files.
+INCLUDES = -I./include
+
+#The path to the libraries.
+LFLAGS = -L./dep 
+
+#The libraries.
+LIBS = -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
+
 
 #The Object files:
 OBJ = main.o
+
+.PHONY: clean
  
-all: $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARG) $(OBJ) -L./dep/ -l$(LIB)
+all: $(TARG)
+	@echo Starting compilation.
+
+$(TARG): $(OBJ)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARG) $(OBJ) $(LFLAGS) $(LIBS)
 
 $(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC) 
 
 clean: 
 	rm *.o
