@@ -19,22 +19,16 @@ LFLAGS = -L./dep
 #The libraries.
 LIBS = -lGL -lGLU -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 
-
 #The Object files:
 OBJ = main.o
 
 .PHONY: clean
  
-<<<<<<< HEAD
-all: $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARG) $(OBJ) L. -l$(LIB)
-=======
 all: $(TARG)
 	@echo Starting compilation.
 
 $(TARG): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARG) $(OBJ) $(LFLAGS) $(LIBS)
->>>>>>> workingBranch
 
 $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC) 
