@@ -9,8 +9,13 @@ int main(int argc, char **argv)
 	fission::Window window(WIDTH, HEIGHT, title, false);
 
 	while(!window.close()){
-		window.update();
-		if(window.isKeyPressed(GLFW_KEY_ENTER))
+		window.clear();
+
+		glClearColor(0.667f, 0.224f, 0.224f, 1.0f);
+
+		if(window.isKeyPressed(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
+
+		window.update();
 	}
 }
