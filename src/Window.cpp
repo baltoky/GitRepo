@@ -7,8 +7,17 @@ namespace fission{
 		f_height = height;
 		f_title = title;
 		f_fulscreen = fulscreen;
+
 		if(!init()){//Close the window if it returns '-1'
 			std::cout << "The Window did not initiate correctly." << std::endl;
+		}
+
+		for(int i = 0; i < GLFW_KEY_LAST; i++){
+			f_keys[i] = false;
+		}
+
+		for(int i = 0; i < GLFW_MOUSE_BUTTON_LAST; i++){
+			f_mouse[i] = false;
 		}
 	}
 
@@ -75,6 +84,16 @@ namespace fission{
 
 	bool Window::close(){
 		return glfwWindowShouldClose(f_window) == 1;
+	}
+
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+
+	}
+
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
+	}
+
+	void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
 	}
 
 }

@@ -2,7 +2,7 @@
 CC = g++
 
 #The Compiler Flags:
-CFLAGS = -std=c++0x -g -Wall
+CFLAGS = -std=c++11 -g -Wall
 
 #The Title of The exe file:
 TARG = ProjectOne.exe
