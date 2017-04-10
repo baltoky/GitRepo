@@ -12,12 +12,18 @@ namespace fission{
 		private:
 			int f_width;
 			int f_height;
-			GLFWwindow *window;
+			GLFWwindow* f_window;
 			char* f_title;
+			bool f_fulscreen;
 		public:
-			Window();
+			Window(int width, int height, char *title, bool fulscreen);
 			~Window();
-			int init();
+			int getWidth();
+			int getHeight();
+			bool init();
+			void update();
+			void clear();
+			bool close();
 	};
 
 }
