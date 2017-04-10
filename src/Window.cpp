@@ -1,7 +1,9 @@
 #include "Window.h"
 
 namespace fission{
+
 	void windowResize(GLFWwindow* window, int width, int height);
+
 	Window::Window(int width, int height, char *title, bool fulscreen){
 		f_width = width;
 		f_height = height;
@@ -33,7 +35,27 @@ namespace fission{
 	int Window::getHeight(){
 		return f_height;
 	}
+
+	GLFWwindow* Window::getWindowPointer(){
+		return f_window;
+	}
 	
+	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->f_keys[key] = action != GLFW_RELEASE;
+	}
+
+	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->f_mouse[button] = action != GLFW_RELEASE;
+	}
+
+	void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->f_xpos = xpos;
+		win->f_ypos = ypos;
+	}
+
 	bool Window::init(){
 
 		if(!glfwInit()){
@@ -47,6 +69,9 @@ namespace fission{
 		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 		f_window = glfwCreateWindow(f_width, f_height, f_title, NULL, NULL);
+
+		if(f_fulscreen)
+			glfwSetWindowMonitor(f_window, glfwGetPrimaryMonitor(), 0, 0, f_width, f_height, GLFW_REFRESH_RATE);
 
 		if(f_window == 0){
 			std::cout << "Failed to create window." << std::endl;
@@ -64,6 +89,10 @@ namespace fission{
 			std::cout << "Glew failed to initialize." << std::endl;
 			return false;
 		}
+
+		glfwSetKeyCallback(f_window, key_callback);
+		glfwSetMouseButtonCallback(f_window, mouse_button_callback);
+		glfwSetCursorPosCallback(f_window, cursor_position_callback);
 		
 		return 1;
 	}
@@ -86,14 +115,24 @@ namespace fission{
 		return glfwWindowShouldClose(f_window) == 1;
 	}
 
-	void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
-
+	bool Window::isKeyPressed(unsigned int keycode)const{
+		if(keycode >= GLFW_KEY_LAST)
+			return false;
+		else
+			return f_keys[keycode];
 	}
 
-	void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
+	bool Window::isMouseButtonPressed(unsigned int button)const{
+		if(button >= GLFW_MOUSE_BUTTON_LAST)
+			return false;
+		else
+			return f_mouse[button];
 	}
 
-	void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+	void Window::getCursorPosition(double &xpos, double &ypos)const{
+		xpos = this->f_xpos;
+		ypos = this->f_ypos;
 	}
+
 
 }

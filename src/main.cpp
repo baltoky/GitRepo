@@ -1,7 +1,7 @@
 #include "Window.h"
 
-const int WIDTH = 500;
-const int HEIGHT = 300;
+const int WIDTH = 1280;
+const int HEIGHT = 720;
 
 int main(int argc, char **argv)
 {
@@ -10,5 +10,7 @@ int main(int argc, char **argv)
 
 	while(!window.close()){
 		window.update();
+		if(window.isKeyPressed(GLFW_KEY_ENTER))
+			glfwSetWindowShouldClose(window.getWindowPointer(), true);
 	}
 }
