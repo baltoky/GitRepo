@@ -1,11 +1,13 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
+#define GLEW_STATIC
+#include <iostream>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace fission{
 
-	class window{
+	class Window{
 	
 		private:
 			int f_width;
@@ -13,8 +15,9 @@ namespace fission{
 			GLFWwindow *window;
 			char* title;
 		public:
-			window();
-			~window();
-	}
+			Window();
+			~Window();
+			int init();
+	};
 
 }

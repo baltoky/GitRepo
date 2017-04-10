@@ -8,7 +8,7 @@ CFLAGS = -g -Wall
 TARG = ProjectOne.exe
 
 #The Source Code:
-SRC = src/main.cpp
+SRC = src/main.cpp src/Window.cpp
 
 #The path to the include files.
 INCLUDES = -I./include
@@ -20,18 +20,20 @@ LFLAGS = -L./dep
 LIBS = -lGL -lGLU -lGLEW -lglfw3 -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama -lXcursor
 
 #The Object files:
-OBJ = main.o
+OBJ = $(SRC:.cpp=.o)
 
 .PHONY: clean
  
 all: $(TARG)
-	@echo Starting compilation.
+	@echo Compilation Successful.
 
 $(TARG): $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $(TARG) $(OBJ) $(LFLAGS) $(LIBS)
+	@echo Linking successful.
 
-$(OBJ): $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC) 
+.cpp.o:
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo Compiling $(SRC).
 
 clean: 
-	rm *.o
+	cd src/ ; rm *.o ; cd ..
