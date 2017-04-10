@@ -13,7 +13,7 @@ namespace fission{
 			int f_width;
 			int f_height;
 			GLFWwindow *window;
-			char* title;
+			char* f_title;
 		public:
 			Window();
 			~Window();
