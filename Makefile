@@ -8,7 +8,7 @@ CFLAGS = -std=c++11 -g -Wall
 TARG = ProjectOne.exe
 
 #The Source Code:
-SRC = src/main.cpp src/Window.cpp
+SRC = src/main.cpp src/graphics/Window.cpp src/shader/shader.cpp
 
 #The path to the include files.
 INCLUDES = -I./include
@@ -37,3 +37,5 @@ $(TARG): $(OBJ)
 
 clean: 
 	cd src/ ; rm *.o ; cd ..
+	cd src/graphics/ ; rm *.o ; cd ../..
+	cd src/shader/ ; rm *.o ; cd ../..
