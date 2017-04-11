@@ -5,8 +5,9 @@ namespace fission{
 	/* Shader Class */
 
 	Shader::Shader(char* shaderLocation, ShaderType type){
-		readShader(shaderLocation);
-		compileShader();
+		f_type = type;
+		this->readShader(shaderLocation);
+		this->compileShader();
 	}
 
 	void Shader::readShader(char* shaderLocation){
@@ -25,13 +26,14 @@ namespace fission{
 
 			// Empting the source array, to minimize bugs.
 			for(int i = 0; i < size; i++){
-				f_shaderSource[i] = ' ';
+					f_shaderSource[i] = ' ';
 			}
 
 			// Writing into the source.
 			for(int i = 0; i < size; i++){
 				iFile.get(f_shaderSource[i]);
 			}
+
 		}
 		else{
 			std::cout << "ERROR: No path with that name." << std::endl;

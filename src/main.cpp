@@ -1,5 +1,5 @@
 #include "graphics/Window.h"
-#include "shader/shader.h"
+#include "graphics/shader/shader.h"
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
@@ -10,8 +10,8 @@ int main(int argc, char **argv)
 	fission::Window window(WIDTH, HEIGHT, title, false);
 
 	fission::ShaderProgram prog;
-	fission::Shader vertex((char*)"src/shader/defaultVert.glsl", fission::vertexShader);
-	fission::Shader fragment((char*)"src/shader/defaultFrag.glsl", fission::fragmentShader);
+	fission::Shader vertex((char*)"src/graphics/shader/defaultVert.glsl", fission::vertexShader);
+	fission::Shader fragment((char*)"src/graphics/shader/defaultFrag.glsl", fission::fragmentShader);
 	prog.addShader(vertex);
 	prog.addShader(fragment);
 	prog.createProgram();
@@ -29,6 +29,8 @@ int main(int argc, char **argv)
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	prog.useProgram();
 
 	while(!window.close()){
 		window.clear();
