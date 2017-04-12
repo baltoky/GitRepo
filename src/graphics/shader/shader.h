@@ -25,7 +25,6 @@ namespace fission{
 			void compileShader();
 			bool checkShaderError();
 			void deleteShader();
-			void printShader();// For Testing purposes, TODO: dd this line after you're done testing.
 			GLuint getShaderId();
 	};
 

@@ -87,23 +87,16 @@ namespace fission{
 			return true;
 		}
 		else{
-			std::cout << "The shader " << f_shaderId << " of type " << f_type << " was compiled properly" << std::endl;
 			return false;
 		}
-	}
-
-	void Shader::deleteShader(){
-		glDeleteShader(this->f_shaderId);
 	}
 
 	GLuint Shader::getShaderId(){
 		return this->f_shaderId;
 	}
 
-	void Shader::printShader(){
-		for(int i = 0; i < size; i++){
-			std::cout << f_shaderSource[i];
-		}
+	void Shader::deleteShader(){
+		glDeleteShader(f_shaderId);
 	}
 
 	/* ShaderProgram Class */

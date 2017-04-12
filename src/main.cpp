@@ -16,9 +16,6 @@ int main(int argc, char **argv)
 	prog.addShader(fragment);
 	prog.createProgram();
 
-	vertex.printShader();
-	fragment.printShader();
-
 	GLfloat vert[] = {
 		// Vetices.			// Colors.
 		-0.5f, -0.5f, 0.0f,		0.294f, 0.745f, 0.808f,
