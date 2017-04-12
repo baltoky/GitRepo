@@ -66,7 +66,7 @@ namespace fission{
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+		//glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
 		f_window = glfwCreateWindow(f_width, f_height, f_title, NULL, NULL);
 
