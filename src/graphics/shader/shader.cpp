@@ -6,6 +6,7 @@ namespace fission{
 
 	Shader::Shader(char* shaderLocation, ShaderType type){
 		f_type = type;
+		size = 0;
 		this->readShader(shaderLocation);
 		this->compileShader();
 	}
@@ -18,11 +19,11 @@ namespace fission{
 			// Get the size of the file, via going to the end of the file
 			// and telling the count, then going back to the begining.
 			iFile.seekg(0, iFile.end);
-			int size = iFile.tellg();
+			size = iFile.tellg();
 			iFile.seekg(0, iFile.beg);
 
-			// Setting the Shader's file size.
-			f_shaderSource = new char[size];
+			// Setting the Shader's file size. To make space for the last character we add 1 to size.
+			f_shaderSource = new char[size + 1];
 
 			// Empting the source array, to minimize bugs.
 			for(int i = 0; i < size; i++){
@@ -33,6 +34,9 @@ namespace fission{
 			for(int i = 0; i < size; i++){
 				iFile.get(f_shaderSource[i]);
 			}
+
+			// This is where we add that last character to end the sequence.
+			f_shaderSource[size] = '\0';
 
 		}
 		else{
@@ -83,6 +87,7 @@ namespace fission{
 			return true;
 		}
 		else{
+			std::cout << "The shader " << f_shaderId << " of type " << f_type << " was compiled properly" << std::endl;
 			return false;
 		}
 	}
@@ -93,6 +98,12 @@ namespace fission{
 
 	GLuint Shader::getShaderId(){
 		return this->f_shaderId;
+	}
+
+	void Shader::printShader(){
+		for(int i = 0; i < size; i++){
+			std::cout << f_shaderSource[i];
+		}
 	}
 
 	/* ShaderProgram Class */

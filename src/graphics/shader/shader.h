@@ -18,12 +18,14 @@ namespace fission{
 			GLuint f_shaderId;
 			char* f_shaderSource;
 			ShaderType f_type;
+			int size;
 		public:
 			Shader(char* shaderLocation, ShaderType type);
 			void readShader(char* shaderLocation);
 			void compileShader();
 			bool checkShaderError();
 			void deleteShader();
+			void printShader();// For Testing purposes, TODO: dd this line after you're done testing.
 			GLuint getShaderId();
 	};
 
