@@ -26,24 +26,25 @@ int main(int argc, char **argv)
 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
+	glBindVertexArray(VAO);
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vert), vert, GL_STATIC_DRAW);
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(1);
 
 	glBindVertexArray(0);
 	// -- End of the triangle graphics --
 
 	// -- Start of the square graphics -- 
 	GLfloat sqrVert[] = {
-		// Vertices, 		Colors
+		// Vertices, 		
 		0.3f, 0.6f, 0.0f, 	0.8f, 0.5f, 0.2f,
 		0.3f, 0.3f, 0.0f,	0.5f, 0.2f, 0.8f,
 		0.6f, 0.6f, 0.0f,	0.5f, 0.2f, 0.8f,
@@ -58,7 +59,7 @@ int main(int argc, char **argv)
 	GLuint VAO2;
 	glGenVertexArrays(1, &VAO2);
 	GLuint VBO2;
-	glGenBuffers(1, &VBO2);
+	glGenBuffers(1, &VBO2); // For setting the vertices.
 	GLuint EBO2;
 	glGenBuffers(1, &EBO2);
 
@@ -69,12 +70,12 @@ int main(int argc, char **argv)
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO2);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sqrIndeces), sqrIndeces, GL_STATIC_DRAW);
-
+		
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
-
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(1);
+
 
 	glBindVertexArray(0);
 
