@@ -148,4 +148,6 @@ namespace fission{
 		}
 	}
 
+	GLuint ShaderProgram::getProgram(){return this->f_program;}
+
 }

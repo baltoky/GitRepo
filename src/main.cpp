@@ -1,5 +1,6 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
+#include <glm/glm.hpp>
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
@@ -59,7 +60,7 @@ int main(int argc, char **argv)
 	GLuint VAO2;
 	glGenVertexArrays(1, &VAO2);
 	GLuint VBO2;
-	glGenBuffers(1, &VBO2); // For setting the vertices.
+	glGenBuffers(1, &VBO2); 
 	GLuint EBO2;
 	glGenBuffers(1, &EBO2);
 
@@ -87,7 +88,6 @@ int main(int argc, char **argv)
 		window.clear();
 
 		glClearColor(1.0f, 0.5f, 0.2f, 1.0f);
-
 
 		if(window.isKeyPressed(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
