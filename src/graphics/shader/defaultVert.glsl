@@ -5,10 +5,10 @@ layout (location = 1) in vec3 color;
 
 out vec3 col;
 
-uniform mat4 proj;
+uniform mat4 projection;
 
 void main(){
-	gl_Position = proj * vec4(position, 1.0f);
+	gl_Position = projection * vec4(position, 1.0f);
 	col = color;
 }
 

@@ -38,8 +38,7 @@ namespace fission{
 			void addShader(Shader& shader);
 			void createProgram();
 			bool checkShaderProgramError();
-			GLuint getProgram();
-			
+			GLuint getShaderProgram();
 	};
 
 }
