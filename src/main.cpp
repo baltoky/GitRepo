@@ -1,6 +1,8 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 const int WIDTH = 1280;
 const int HEIGHT = 720;
@@ -82,7 +84,14 @@ int main(int argc, char **argv)
 
 	// -- End of the square graphics --
 
+	//glm::mat4 projection;
+
+	//projection = glm::ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, 0.1f, 100.0f);
+
 	prog.useProgram();
+
+	//GLint projLoc = glGetUniformLocation(prog.getProgram(), "proj");
+	//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	while(!window.close()){
 		window.clear();
