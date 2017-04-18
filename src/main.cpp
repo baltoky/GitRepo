@@ -48,10 +48,10 @@ int main(int argc, char **argv)
 	// -- Start of the square graphics -- 
 	GLfloat sqrVert[] = {
 		// Vertices, 		
-		0.3f, 0.6f, 0.0f, 	0.8f, 0.5f, 0.2f,
-		0.3f, 0.3f, 0.0f,	0.5f, 0.2f, 0.8f,
-		0.6f, 0.6f, 0.0f,	0.5f, 0.2f, 0.8f,
-		0.6f, 0.3f, 0.0f, 	0.2f, 0.8f, 0.5f
+		0.3f, 0.6f, 1.0f, 	0.8f, 0.5f, 0.2f,
+		0.3f, 0.3f, 1.0f,	0.5f, 0.2f, 0.8f,
+		0.6f, 0.6f, 1.0f,	0.5f, 0.2f, 0.8f,
+		0.6f, 0.3f, 1.0f, 	0.2f, 0.8f, 0.5f
 	};
 
 	GLuint sqrIndeces[] = {
@@ -84,12 +84,16 @@ int main(int argc, char **argv)
 
 	// -- End of the square graphics --
 
+	float scale = 0.2;
+
 	prog.useProgram();
 
-	glm::vec3 colorMan(0.2f, 0.4f, 0.3f);
-
-	GLuint colLoc = glGetUniformLocation(prog.getShaderProgram(), "colorManip");
-	glUniform3fv(colLoc, 1, glm::value_ptr(colorMan));
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+	//ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, 100.0f, 0.1f);
+	GLint projectionLoc = glGetUniformLocation(prog.getShaderProgram(), "Projection");
+	GLint scaleLoc = glGetUniformLocation(prog.getShaderProgram(), "Scale");
+	glUniform1f(scaleLoc, scale);
+	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	while(!window.close()){
 		window.clear();

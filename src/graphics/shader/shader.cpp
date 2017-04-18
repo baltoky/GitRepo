@@ -77,13 +77,13 @@ namespace fission{
 	bool Shader::checkShaderError(){
 		const int SIZE = 300;
 		GLint success;
-		GLchar logInfo[SIZE];
+		GLchar infoLog[SIZE];
 
 		glGetShaderiv(f_shaderId, GL_COMPILE_STATUS, &success);
 
 		if(!success){
-			glGetShaderInfoLog(f_shaderId, SIZE, NULL, logInfo);
-			std::cout << "ERROR: Compilation failed in - " << f_type << logInfo << std::endl;
+			glGetShaderInfoLog(f_shaderId, SIZE, NULL, infoLog);
+			std::cout << "ERROR: Compilation failed in - " << f_type << infoLog << std::endl;
 			return true;
 		}
 		else{
@@ -125,7 +125,7 @@ namespace fission{
 
 		// Error checking...
 
-		if(this->checkShaderProgramError())
+		if(checkShaderProgramError())
 			std::cout << "There was an error creating the program" << std::endl;
 		
 		for(int i = 0; i < (signed)f_shaders.size(); i++){
