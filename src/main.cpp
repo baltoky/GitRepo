@@ -86,6 +86,11 @@ int main(int argc, char **argv)
 
 	prog.useProgram();
 
+	glm::vec3 colorMan(0.2f, 0.4f, 0.3f);
+
+	GLuint colLoc = glGetUniformLocation(prog.getShaderProgram(), "colorManip");
+	glUniform3fv(colLoc, 1, glm::value_ptr(colorMan));
+
 	while(!window.close()){
 		window.clear();
 

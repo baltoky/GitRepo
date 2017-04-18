@@ -5,8 +5,10 @@ layout (location = 1) in vec3 color;
 
 out vec3 col;
 
+uniform vec3 colorManip;
+
 void main(){
 	gl_Position = vec4(position, 1.0f);
-	col = color;
+	col = color * colorManip;
 }
 
