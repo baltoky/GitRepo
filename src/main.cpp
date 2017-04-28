@@ -12,14 +12,17 @@ int main(int argc, char **argv)
 	char* title = (char*)"The Little RPG";
 	fission::Window window(WIDTH, HEIGHT, title, false);
 
+	// Setting up the shader program.
 	fission::ShaderProgram prog;
 	fission::Shader vertex((char*)"src/graphics/shader/defaultVert.glsl", fission::vertexShader);
 	fission::Shader fragment((char*)"src/graphics/shader/defaultFrag.glsl", fission::fragmentShader);
-	prog.addShader(vertex);
-	prog.addShader(fragment);
+	prog << vertex;
+	prog << fragment;
 	prog.createProgram();
+	// Shader program should be set.
 
 	// -- Starts organizing the triangle graphics -- 
+#if 0
 	GLfloat vert[] = {
 		// Vetices.			// Colors.
 		-0.7f, 0.0f, 0.0f,		0.294f, 0.745f, 0.808f,
@@ -44,14 +47,15 @@ int main(int argc, char **argv)
 
 	glBindVertexArray(0);
 	// -- End of the triangle graphics --
+#endif
 
 	// -- Start of the square graphics -- 
 	GLfloat sqrVert[] = {
 		// Vertices, 		
-		0.3f, 0.6f, 1.0f, 	0.8f, 0.5f, 0.2f,
-		0.3f, 0.3f, 1.0f,	0.5f, 0.2f, 0.8f,
-		0.6f, 0.6f, 1.0f,	0.5f, 0.2f, 0.8f,
-		0.6f, 0.3f, 1.0f, 	0.2f, 0.8f, 0.5f
+		0.3f, 0.6f, 0.0f, 	0.8f, 0.5f, 0.2f,
+		0.3f, 0.3f, 0.0f,	0.5f, 0.2f, 0.8f,
+		0.6f, 0.6f, 0.0f,	0.5f, 0.2f, 0.8f,
+		0.6f, 0.3f, 0.0f, 	0.2f, 0.8f, 0.5f
 	};
 
 	GLuint sqrIndeces[] = {
@@ -84,16 +88,19 @@ int main(int argc, char **argv)
 
 	// -- End of the square graphics --
 
-	float scale = 0.2;
+	//float scale = 1.0f;
 
 	prog.useProgram();
 
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-	//ortho(0.0f, (float)WIDTH, (float)HEIGHT, 0.0f, 100.0f, 0.1f);
-	GLint projectionLoc = glGetUniformLocation(prog.getShaderProgram(), "Projection");
-	GLint scaleLoc = glGetUniformLocation(prog.getShaderProgram(), "Scale");
-	glUniform1f(scaleLoc, scale);
-	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+	//glm::mat4 move = glm::translate(move, glm::vec3(0.1f, 0.1f, 0.0f));
+	//GLint moveLoc = glGetUniformLocation(prog.getShaderProgram(), "move");
+	//glUniformMatrix4fv(moveLoc, 1, GL_FALSE, glm::value_ptr(move));
+
+	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+	//GLint projectionLoc = glGetUniformLocation(prog.getShaderProgram(), "Projection");
+	//GLint scaleLoc = glGetUniformLocation(prog.getShaderProgram(), "Scale");
+	//glUniform1f(scaleLoc, scale);
+	//glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
 	while(!window.close()){
 		window.clear();
@@ -104,7 +111,7 @@ int main(int argc, char **argv)
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
 
 
-		glBindVertexArray(VAO);
+		//glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glBindVertexArray(0);
 
@@ -115,9 +122,9 @@ int main(int argc, char **argv)
 		window.update();
 	}
 
-	glDeleteVertexArrays(1, &VAO);
+//	glDeleteVertexArrays(1, &VAO);
 	glDeleteVertexArrays(1, &VAO2);
-	glDeleteBuffers(1, &VBO);
+//	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &VBO2);
 
 }

@@ -114,6 +114,10 @@ namespace fission{
 		f_shaders.push_back(shader);
 	}
 
+	void ShaderProgram::operator<<(Shader& shader){
+		addShader(shader);
+	}
+
 	void ShaderProgram::createProgram(){
 		f_program = glCreateProgram();
 
@@ -126,7 +130,7 @@ namespace fission{
 		// Error checking...
 
 		if(checkShaderProgramError())
-			std::cout << "There was an error creating the program" << std::endl;
+			std::cout <<"There was an error creating the program" << std::endl;
 		
 		for(int i = 0; i < (signed)f_shaders.size(); i++){
 			f_shaders[i].deleteShader();
@@ -138,6 +142,8 @@ namespace fission{
 		GLint success;
 		GLchar infoLog[SIZE];
 		glGetProgramiv(f_program, GL_COMPILE_STATUS, &success);
+
+		std::cout << success << std::endl;
 
 		if(!success){
 			glGetProgramInfoLog(f_program, SIZE, NULL, infoLog);
