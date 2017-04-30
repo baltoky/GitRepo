@@ -82,6 +82,7 @@ namespace fission{
 			glGetShaderInfoLog(f_shaderId, SIZE, NULL, infoLog);
 			std::cout << "SHADER ERROR: There was an error compiling shader: " << f_shaderId <<
 				", of type: " << f_type << std::endl;
+			std::cout << infoLog << std::endl;
 			return true;
 		}else
 			return false;

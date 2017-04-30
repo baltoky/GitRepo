@@ -5,12 +5,13 @@ layout (location = 1) in vec3 color;
 
 out vec3 col;
 
-uniform float Scale;
+// When utilizing these, use in reverse order. Model, View, Projection.
 uniform mat4 Projection;
-//uniform mat4 move;
+uniform mat4 View;
+uniform mat4 Model;
 
 void main(){
-	gl_Position = Projection * vec4(position.x * Scale, position.y * Scale, position.z * Scale, 1.0f);
+	gl_Position =  Projection * View *  Model * vec4(position.x , position.y , position.z , 1.0f);
 	col = color;
 }
 
