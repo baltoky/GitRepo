@@ -12,14 +12,7 @@ int main(int argc, char **argv)
 	char* title = (char*)"The Little RPG";
 	fission::Window window(WIDTH, HEIGHT, title, false);
 
-	// Setting up the shader program.
-	fission::ShaderProgram prog;
-	fission::Shader vertex((char*)"src/graphics/shader/defaultVert.glsl", fission::vertexShader);
-	fission::Shader fragment((char*)"src/graphics/shader/defaultFrag.glsl", fission::fragmentShader);
-	prog << vertex;
-	prog << fragment;
-	prog.createProgram();
-	// Shader program should be set.
+	fission::ShaderProgram prog((char*)"./src/graphics/shader/defaultVert.glsl", (char*)"./src/graphics/shader/defaultFrag.glsl");
 
 	// -- Starts organizing the triangle graphics -- 
 #if 0
@@ -88,19 +81,21 @@ int main(int argc, char **argv)
 
 	// -- End of the square graphics --
 
-	//float scale = 1.0f;
+	float scale = 0.2f;
+	glm::mat4 projectionMat;
+	glm::mat4 viewMat;
+	glm::mat4 modelMat;
+
+ 	projectionMat= glm::perspective(glm::radians(60.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 1.0f, 100.0f);
+	viewMat = glm::translate(viewMat, glm::vec3(0.0f, 0.0f, -3.0f));
+	modelMat = glm::scale(modelMat, glm::vec3(2.0f, 2.0f, 0.0f));
 
 	prog.useProgram();
 
-	//glm::mat4 move = glm::translate(move, glm::vec3(0.1f, 0.1f, 0.0f));
-	//GLint moveLoc = glGetUniformLocation(prog.getShaderProgram(), "move");
-	//glUniformMatrix4fv(moveLoc, 1, GL_FALSE, glm::value_ptr(move));
-
-	//glm::mat4 projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-	//GLint projectionLoc = glGetUniformLocation(prog.getShaderProgram(), "Projection");
-	//GLint scaleLoc = glGetUniformLocation(prog.getShaderProgram(), "Scale");
-	//glUniform1f(scaleLoc, scale);
-	//glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+	GLint scaleLocation = glGetUniformLocation(prog.f_program, "Scale");
+	GLuint projectionLocation = glGetUniformLocation(prog.f_program, "Projection");
+	glUniform1f(scaleLocation, scale);
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMat));
 
 	while(!window.close()){
 		window.clear();
