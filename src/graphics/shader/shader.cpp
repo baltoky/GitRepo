@@ -1,53 +1,53 @@
+#include <cstdlib>
 #include "shader.h"
 
 namespace fission{
 
-	/* Shader Class */
+	Shader::Shader(){}
 
-	Shader::Shader(char* shaderLocation, ShaderType type){
+	Shader::Shader(char* shaderFilePath, ShaderType type){
+		f_shaderId = 0;
 		f_type = type;
-		size = 0;
-		this->readShader(shaderLocation);
-		this->compileShader();
+		readShader(shaderFilePath);
+		compileShader();
+	}
+
+	void Shader::init(char* shaderFilePath, ShaderType type){
+		f_shaderId = 0;
+		f_type = type;
+		readShader(shaderFilePath);
+		compileShader();
 	}
 
 	void Shader::readShader(char* shaderLocation){
-		std::ifstream iFile(shaderLocation);
+		int size = 0, i = 0;
+		char temp;
+		FILE *fp = fopen(shaderLocation, "r");
 
-		if(iFile.is_open()){
-
-			// Get the size of the file, via going to the end of the file
-			// and telling the count, then going back to the begining.
-			iFile.seekg(0, iFile.end);
-			size = iFile.tellg();
-			iFile.seekg(0, iFile.beg);
-
-			// Setting the Shader's file size. To make space for the last character we add 1 to size.
-			f_shaderSource = new char[size + 1];
-
-			// Empting the source array, to minimize bugs.
-			for(int i = 0; i < size; i++){
-					f_shaderSource[i] = ' ';
-			}
-
-			// Writing into the source.
-			for(int i = 0; i < size; i++){
-				iFile.get(f_shaderSource[i]);
-			}
-
-			// This is where we add that last character to end the sequence.
-			f_shaderSource[size] = '\0';
-
+		if(fp == NULL){
+			std::cout << "The file " << shaderLocation << " could not open." << std::endl;
+			exit(1);
 		}
-		else{
-			std::cout << "ERROR: No path with that name." << std::endl;
-		}
+		while(fscanf(fp, "%c", &temp) != EOF)size++;
+		fclose(fp);
 
-		iFile.close();
+		f_shaderSource = new char[size];
+		for(int j = 0; j < size; j++)
+			f_shaderSource[j] = ' ';
+		f_shaderSource[size - 1] = '\0';
+
+		std::cout << f_shaderSource << std::endl;
+
+		fp = fopen(shaderLocation, "r");
+		while(fscanf(fp, "%c", &f_shaderSource[i]) != EOF){i++;}
+		fclose(fp);
+		f_shaderSource[size - 1] = '\0';
+
+		std::cout << f_shaderSource << std::endl;
+
 	}
 
 	void Shader::compileShader(){
-
 		switch(f_type){
 			case vertexShader:
 				f_shaderId = glCreateShader(GL_VERTEX_SHADER);
@@ -55,99 +55,44 @@ namespace fission{
 			case fragmentShader:
 				f_shaderId = glCreateShader(GL_FRAGMENT_SHADER);
 				break;
+			case geometryShader: // TODO: add a geometry shader at some point.
+				break;
 			default:
-				std::cout << "SHADER ERROR: No shader type was found." << std::endl;
+				std::cout << "SHADER ERROR: Could not recognize shader type" << std::endl;
 				break;
 		}
 
-		// glShaderSource : 
-		// ( id of the shader we are compiling |
-		// number of shaders |
-		// the source code of the shader |
-		// limit of the shader array )
 		glShaderSource(f_shaderId, 1, &f_shaderSource, NULL);
 		glCompileShader(f_shaderId);
 
-		if(this->checkShaderError()){
-			std::cout << "ERROR: shader " << f_type << " did not compile properly. " << std::endl;
+		if(!checkShaderError()){
+			std::cout << "There was no error douring the compilation of shader: " << this->f_shaderId <<
+				" of type: " << f_type << std::endl;
 		}
-
 	}
 
 	bool Shader::checkShaderError(){
 		const int SIZE = 300;
 		GLint success;
-		GLchar logInfo[SIZE];
+		GLchar infoLog[SIZE];
 
 		glGetShaderiv(f_shaderId, GL_COMPILE_STATUS, &success);
 
 		if(!success){
-			glGetShaderInfoLog(f_shaderId, SIZE, NULL, logInfo);
-			std::cout << "ERROR: Compilation failed in - " << f_type << logInfo << std::endl;
+			glGetShaderInfoLog(f_shaderId, SIZE, NULL, infoLog);
+			std::cout << "SHADER ERROR: There was an error compiling shader: " << f_shaderId <<
+				", of type: " << f_type << std::endl;
+			std::cout << infoLog << std::endl;
 			return true;
-		}
-		else{
+		}else
 			return false;
-		}
-	}
-
-	GLuint Shader::getShaderId(){
-		return this->f_shaderId;
 	}
 
 	void Shader::deleteShader(){
 		glDeleteShader(f_shaderId);
 	}
 
-	/* ShaderProgram Class */
-
-	ShaderProgram::ShaderProgram(){
-		// Use add to add shaders and createProgram to use the program.
-		f_program = 0;
-	}
-
-	void ShaderProgram::useProgram(){
-		glUseProgram(f_program);
-	}
-
-	void ShaderProgram::addShader(Shader& shader){
-		f_shaders.push_back(shader);
-	}
-
-	void ShaderProgram::createProgram(){
-		f_program = glCreateProgram();
-
-		for(int i = 0; i < (signed)f_shaders.size(); i++){
-			glAttachShader(f_program, f_shaders[i].getShaderId());
-		}
-
-		glLinkProgram(f_program);
-
-		// Error checking...
-
-		if(this->checkShaderProgramError())
-			std::cout << "There was an error creating the program" << std::endl;
-		
-		for(int i = 0; i < (signed)f_shaders.size(); i++){
-			f_shaders[i].deleteShader();
-		}
-	}
-
-	bool ShaderProgram::checkShaderProgramError(){
-		const int SIZE = 300;
-		GLint success;
-		GLchar infoLog[SIZE];
-		glGetProgramiv(f_program, GL_COMPILE_STATUS, &success);
-
-		if(!success){
-			glGetProgramInfoLog(f_program, SIZE, NULL, infoLog);
-			std::cout << "ERROR: Shader failed to link. " << infoLog << std::endl;
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	GLuint ShaderProgram::getProgram(){return this->f_program;}
+	GLuint Shader::getShaderId(){return this->f_shaderId;}
+	ShaderType Shader::getShaderType(){return this->f_type;}
 
 }

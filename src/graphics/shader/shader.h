@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdio>
 #include <vector>
 #include <GL/glew.h>
 
@@ -10,36 +11,40 @@ namespace fission{
 
 	enum ShaderType{
 		vertexShader = 1,
-		fragmentShader = 2
+		fragmentShader = 2,
+		geometryShader = 3
 	};
 
 	class Shader{
 		private:
 			GLuint f_shaderId;
-			char* f_shaderSource;
 			ShaderType f_type;
-			int size;
+			char* f_shaderSource;
 		public:
-			Shader(char* shaderLocation, ShaderType type);
+			GLuint f_program;
+			Shader();
+			Shader(char* shaderFilePath, ShaderType type);
+			void init(char* shaderFilePath, ShaderType type);
 			void readShader(char* shaderLocation);
 			void compileShader();
-			bool checkShaderError();
 			void deleteShader();
+			bool checkShaderError();
 			GLuint getShaderId();
+			ShaderType getShaderType();
 	};
 
 	class ShaderProgram{
 		private:
-			GLuint f_program;
-			std::vector<Shader> f_shaders;
+			Shader* f_shaders;
+			int f_shadersSize;
 		public:
-			ShaderProgram();
-			void useProgram();
-			void addShader(Shader& shader);
+			GLuint f_program;
+			ShaderProgram(char* vertex);
+			ShaderProgram(char* vertex, char* fragment);
+			ShaderProgram(char* vertex, char* fragment, char* geometry);
 			void createProgram();
 			bool checkShaderProgramError();
-			GLuint getProgram();
-			
+			void useProgram();
 	};
 
 }
