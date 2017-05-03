@@ -66,7 +66,7 @@ namespace fission{
 		glCompileShader(f_shaderId);
 
 		if(!checkShaderError()){
-			std::cout << "There was no error douring the compilation of shader: " << this->f_shaderId <<
+			std::cout << "There was no error during the compilation of shader: " << this->f_shaderId <<
 				" of type: " << f_type << std::endl;
 		}
 	}

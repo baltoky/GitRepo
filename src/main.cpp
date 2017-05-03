@@ -1,5 +1,8 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
+#include "graphics/image/Texture.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -46,14 +49,28 @@ int main(int argc, char **argv)
 	// -- End of the triangle graphics --
 #endif
 
+	// Texture Loading.
+	
+#if 0
+	int textWidth, textHeight, bitsPerPixel;
+	unsigned char* image = stbi_load("./img/Dickbut.png", &textWidth, &textHeight, &bitsPerPixel, 3);
+	if(image == NULL){
+		std::cout << "Image loading failed..." << std::endl;
+		return 1;
+	}
+
+	GLuint f_Texture;
+	glGenTextures(1, &f_Texture);
+#endif
+
 #if 1
 	// -- Start of the square graphics -- 
 	GLfloat sqrVert[] = {
-		// Vertices, 		
-		-0.5f, 0.5f, 0.0f, 	0.8f, 0.5f, 0.2f,
-		-0.5f, -0.5f, 0.0f,	0.5f, 0.2f, 0.8f,
-		0.5f, 0.5f, 0.0f,	0.5f, 0.2f, 0.8f,
-		0.5f, -0.5f, 0.0f, 	0.2f, 0.8f, 0.5f
+		// Vertices, 		Colors			Textures
+		-0.5f, 0.5f, 0.0f, 	0.8f, 0.5f, 0.2f,	1.0f, 0.0f,
+		-0.5f, -0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	0.0f, 0.0f,
+		0.5f, 0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	1.0f, 1.0f,
+		0.5f, -0.5f, 0.0f, 	0.2f, 0.8f, 0.5f,	0.0f, 1.0f
 	};
 
 	GLuint sqrIndeces[] = {
@@ -75,15 +92,23 @@ int main(int argc, char **argv)
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO2);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sqrIndeces), sqrIndeces, GL_STATIC_DRAW);
-		
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+
+		fission::Texture2D texture;
+		if(!texture.readTexture("./img/Dickbut.png")){
+			std::cout << "Error reading the image." << std::endl;
+		}
+
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glEnableVertexAttribArray(2);
 
 
 	glBindVertexArray(0);
 #endif
+	//stbi_image_free(image);
 	// -- End of the square graphics --
 	prog.useProgram();
 
@@ -117,9 +142,12 @@ int main(int argc, char **argv)
 		//glBindVertexArray(0);
 
 #if 1
+		//glBindTexture(GL_TEXTURE_2D, f_Texture);
+		texture.bind();
 		glBindVertexArray(VAO2);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 #endif
 
 		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(modelMat)); // Model to the Shader.
