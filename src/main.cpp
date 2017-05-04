@@ -1,6 +1,6 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
-#include "graphics/image/Texture.h"
+#include "graphics/texture/Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
@@ -67,10 +67,24 @@ int main(int argc, char **argv)
 	// -- Start of the square graphics -- 
 	GLfloat sqrVert[] = {
 		// Vertices, 		Colors			Textures
-		-0.5f, 0.5f, 0.0f, 	0.8f, 0.5f, 0.2f,	1.0f, 0.0f,
-		-0.5f, -0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	0.0f, 0.0f,
-		0.5f, 0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	1.0f, 1.0f,
-		0.5f, -0.5f, 0.0f, 	0.2f, 0.8f, 0.5f,	0.0f, 1.0f
+		-0.5f, 0.5f, 0.0f,
+		-0.5f, -0.5f, 0.0f,
+		0.5f, 0.5f, 0.0f,
+		0.5f, -0.5f, 0.0f
+	};
+
+	GLfloat colVert[] = {
+		0.0f, 0.5f, 0.2f,
+		0.5f, 0.2f, 0.8f,
+		0.5f, 0.2f, 0.8f,
+		0.2f, 0.8f, 0.5f
+	};
+
+	GLfloat texVert[] = {
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f
 	};
 
 	GLuint sqrIndeces[] = {
@@ -80,15 +94,25 @@ int main(int argc, char **argv)
 
 	GLuint VAO2;
 	glGenVertexArrays(1, &VAO2);
-	GLuint VBO2;
-	glGenBuffers(1, &VBO2); 
+	GLuint vertexVBO2;
+	glGenBuffers(1, &vertexVBO2); 
+	GLuint colorVBO2;
+	glGenBuffers(1, &colorVBO2);
+	GLuint textureVBO2;
+	glGenBuffers(1, &textureVBO2);
 	GLuint EBO2;
 	glGenBuffers(1, &EBO2);
 
 	glBindVertexArray(VAO2);
 
-		glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexVBO2);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(sqrVert), sqrVert, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, colorVBO2);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(colVert), colVert, GL_STATIC_DRAW);
+
+		glBindBuffer(GL_ARRAY_BUFFER, textureVBO2);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(texVert), texVert, GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO2);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sqrIndeces), sqrIndeces, GL_STATIC_DRAW);
@@ -98,12 +122,16 @@ int main(int argc, char **argv)
 			std::cout << "Error reading the image." << std::endl;
 		}
 
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexVBO2);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+		glBindBuffer(GL_ARRAY_BUFFER, colorVBO2);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+		glBindBuffer(GL_ARRAY_BUFFER, textureVBO2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
 		glEnableVertexAttribArray(2);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 
 	glBindVertexArray(0);
@@ -161,7 +189,9 @@ int main(int argc, char **argv)
 	
 #if 1
 	glDeleteVertexArrays(1, &VAO2);
-	glDeleteBuffers(1, &VBO2);
+	glDeleteBuffers(1, &vertexVBO2);
+	glDeleteBuffers(1, &colorVBO2);
+	glDeleteBuffers(1, &textureVBO2);
 #endif
 
 }

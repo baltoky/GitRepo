@@ -8,7 +8,7 @@ CFLAGS = -std=c++11 -g -Wall
 TARG = ProjectOne.exe
 
 #The Source Code:
-SRC = src/main.cpp src/graphics/Window.cpp src/graphics/shader/shader.cpp src/graphics/shader/shaderProgram.cpp src/graphics/image/Texture.cpp
+SRC = src/main.cpp src/graphics/Window.cpp src/graphics/shader/shader.cpp src/graphics/shader/shaderProgram.cpp src/graphics/texture/Texture.cpp
 
 #The path to the include files.
 INCLUDES = -I./include

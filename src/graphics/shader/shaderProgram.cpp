@@ -61,7 +61,7 @@ namespace fission{
 
 		glGetProgramiv(f_program, GL_COMPILE_STATUS, &success);
 
-		if(!success){
+		if(success){
 			glGetProgramInfoLog(f_program, SIZE, NULL, infoLog);
 			std::cout << "SHADER_PROGRAM ERROR: Could not link correctly.\n" << infoLog << std::endl;
 			return true;

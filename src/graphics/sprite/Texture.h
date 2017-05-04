@@ -5,10 +5,11 @@
 
 namespace fission{
 	struct Texture2D{
-			GLuint f_textureId;
-			int f_width;
-			int f_height;
-			bool readTexture(const char* filepath);
-			void bind();
+		GLuint f_textureId;
+		int f_width;
+		int f_height;
+		bool readTexture(const char* filepath);
+		void bind();
 	};
+
 }
