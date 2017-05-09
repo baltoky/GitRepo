@@ -1,6 +1,6 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
-#include "graphics/texture/Texture.h"
+#include "graphics/image2D/Texture.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
@@ -118,7 +118,7 @@ int main(int argc, char **argv)
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(sqrIndeces), sqrIndeces, GL_STATIC_DRAW);
 
 		fission::Texture2D texture;
-		if(!texture.readTexture("./img/Dickbut.png")){
+		if(!texture.readTexture("./img/Sun.png")){
 			std::cout << "Error reading the image." << std::endl;
 		}
 
