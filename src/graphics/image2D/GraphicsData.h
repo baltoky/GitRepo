@@ -36,17 +36,15 @@ namespace fission{
 		TextureUV(float u, float v);
 	};
 
-	class GraphicsData {
+	struct GraphicsData {
 		GLfloat* f_data;
 		std::vector<Vertex3D> f_coorVertex3D;
 		std::vector<Color> f_coorColor;
 		std::vector<TextureUV> f_coorTextureUV;
-	public:
 		void addVertex3D(Vertex3D vertex);
 		void addColor(Color color);
 		void addTextureUV(TextureUV texture);
 		int getSize();
-		int getSize(int &numVertex3D, int &numColor, int &numTextureUV);
 		void generateData();
 	};
 }

@@ -1,6 +1,7 @@
 #include "graphics/Window.h"
 #include "graphics/shader/shader.h"
 #include "graphics/image2D/Texture.h"
+#include "graphics/image2D/GraphicsData.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
@@ -18,6 +19,19 @@ int main(int argc, char **argv)
 	const char* fragmentShader = "./src/graphics/shader/defaultFrag.glsl";
 
 	fission::Window window(WIDTH, HEIGHT, (char*)title, false); // Initializes a window, which controls it's own input.
+
+	fission::GraphicsData data;
+	data.addVertex3D(fission::Vertex3D());
+	data.addVertex3D(fission::Vertex3D(0.0f, 1.0f, 0.0f));
+	data.addVertex3D(fission::Vertex3D(1.0f, 1.0f, 0.0f));
+	data.addVertex3D(fission::Vertex3D(1.0f, 0.0f, 0.0f));
+	data.addColor(fission::Color(0.294f, 0.74f, 0.808f));
+	data.addTextureUV(fission::TextureUV(0.0f, 1.0f));
+	data.generateData();
+	std::cout << "//////////////" << std::endl;
+	for(int i = 0; i < data.getSize(); i++)
+		std::cout << data.f_data[i] << std::endl;
+	
 
 	fission::ShaderProgram prog((char*)vertexShader, (char*)fragmentShader); // Creates a shader program, and links the shader.
 

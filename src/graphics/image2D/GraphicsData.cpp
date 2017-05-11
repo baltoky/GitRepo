@@ -1,4 +1,5 @@
 #include "GraphicsData.h"
+#include <iostream>
 
 namespace fission{
 
@@ -53,24 +54,63 @@ namespace fission{
 		f_coorTextureUV.push_back(texture);
 	}
 	int GraphicsData::getSize(){
-		int size;
-		size += f_coorVertex3D.size() * 3;
-		size += f_coorColor.size() * 3;
-		size += f_coorTextureUV.size() * 2;
+		unsigned int row = 0;
+		unsigned int column = 0;
+		if(f_coorVertex3D.size() > 0){
+			row = f_coorVertex3D.size();
+			column += 3;
+		}
+		if(f_coorColor.size() > 0){
+			if(row < f_coorColor.size())
+				row = f_coorColor.size();
+			column += 3;
+		}
+		if(f_coorTextureUV.size() > 0){
+			if(row < f_coorTextureUV.size())
+				row = f_coorTextureUV.size();
+			column += 2;
+		}
+		int size = column * row;
 		return size;
-	}
-	int GraphicsData::getSize(int &numVertex3D, int &numColor, int &numTextureUV){
-		numVertex3D = f_coorVertex3D.size();
-		numColor = f_coorColor.size();
-		numTextureUV = f_coorTextureUV.size();
-		return getSize();
 	}
 	void GraphicsData::generateData(){
 		int size = getSize();
 		int i = 0;
+		int a = 0, b = 0, c = 0;
 		f_data = new GLfloat[size];
+		for(int j = 0; j < size; j++){
+			f_data[j] = 0.0f;
+			std::cout << f_data[j] << std::endl;
+		}
 		do{
-
+			if(f_coorVertex3D.size() > 0){
+				f_data[i] = f_coorVertex3D[a].f_vertex.x;
+				i++;
+				f_data[i] = f_coorVertex3D[a].f_vertex.y;
+				i++;
+				f_data[i] = f_coorVertex3D[a].f_vertex.z;
+				i++;
+				if(a < f_coorVertex3D.size() - 1)
+					a++;
+			}
+			if(f_coorColor.size() > 0){
+				f_data[i] = f_coorColor[b].f_color.x;
+				i++;
+				f_data[i] = f_coorColor[b].f_color.y;
+				i++;
+				f_data[i] = f_coorColor[b].f_color.z;
+				i++;
+				if(b < f_coorColor.size() - 1)
+					b++;
+			}
+			if(f_coorTextureUV.size() > 0){
+				f_data[i] = f_coorTextureUV[c].f_uv.x;
+				i++;
+				f_data[i] = f_coorTextureUV[c].f_uv.x;
+				i++;
+				if(c < f_coorTextureUV.size() - 1)
+					c++;
+			}
 		}while(i < size);
 	}
 

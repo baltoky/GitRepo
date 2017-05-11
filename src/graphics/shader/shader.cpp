@@ -36,14 +36,10 @@ namespace fission{
 			f_shaderSource[j] = ' ';
 		f_shaderSource[size - 1] = '\0';
 
-		std::cout << f_shaderSource << std::endl;
-
 		fp = fopen(shaderLocation, "r");
 		while(fscanf(fp, "%c", &f_shaderSource[i]) != EOF){i++;}
 		fclose(fp);
 		f_shaderSource[size - 1] = '\0';
-
-		std::cout << f_shaderSource << std::endl;
 
 	}
 
