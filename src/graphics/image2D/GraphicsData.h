@@ -6,6 +6,7 @@
 
 namespace fission{
 	enum CoordinateType{
+		Vertex2DType,
 		Vertex3DType,
 		ColorType,
 		TextureUVType
@@ -15,6 +16,13 @@ namespace fission{
 		CoordinateType f_type;
 		CoordinateType getType();
 	};
+	struct Vertex2D : public Coordinates{
+		glm::vec2 f_vertex;
+		Vertex2D();
+		Vertex2D(glm::vec2 vertex);
+		Vertex2D(float x, float y);
+	};
+
 	struct Vertex3D : public Coordinates{
 		glm::vec3 f_vertex;
 		Vertex3D();
@@ -38,12 +46,18 @@ namespace fission{
 
 	struct GraphicsData {
 		GLfloat* f_data;
+		signed short int f_column;
+		signed short int f_row;
+		std::vector<Vertex2D> f_coorVertex2D;
 		std::vector<Vertex3D> f_coorVertex3D;
 		std::vector<Color> f_coorColor;
 		std::vector<TextureUV> f_coorTextureUV;
+		void addVertex2D(Vertex2D vertex);
 		void addVertex3D(Vertex3D vertex);
 		void addColor(Color color);
 		void addTextureUV(TextureUV texture);
+		void setColumn(int col);
+		void setRow(int row);
 		int getSize();
 		void generateData();
 	};
