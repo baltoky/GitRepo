@@ -70,7 +70,7 @@ namespace fission{
 	}
 	void GraphicsData::setColumn(int col){f_column = (signed short int)col;}
 	void GraphicsData::setRow(int row){f_row = (signed short int)row;}
-	int GraphicsData::getSize(){
+	int GraphicsData::getArrayLength(){
 		unsigned int row = 0;
 		unsigned int column = 0;
 		if(f_coorVertex2D.size() > 0){
@@ -97,8 +97,9 @@ namespace fission{
 		setRow((int)row);
 		return size;
 	}
+	int GraphicsData::getSize(){return (sizeof(GLfloat) * getArrayLength());}
 	void GraphicsData::generateData(){
-		int size = getSize();
+		int size = getArrayLength();
 		int i = 0;
 		unsigned int a = 0, b = 0, c = 0, d = 0;
 		f_data = new GLfloat[size];

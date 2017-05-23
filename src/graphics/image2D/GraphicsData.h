@@ -58,6 +58,7 @@ namespace fission{
 		void addTextureUV(TextureUV texture);
 		void setColumn(int col);
 		void setRow(int row);
+		int getArrayLength();
 		int getSize();
 		void generateData();
 	};

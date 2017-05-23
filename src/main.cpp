@@ -25,24 +25,25 @@ int main(int argc, char **argv)
 	// -- Start of the square graphics -- 
 
 
-	GLfloat sqrVert[] = {
+	/*GLfloat sqrVert[] = {
 		// Vertices, 		Colors			Textures
 		-0.5f, 0.5f, 0.0f,	0.0f, 0.5f, 0.2f,	1.0f, 0.0f,
 		-0.5f, -0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	0.0f, 0.0f,
 		0.5f, 0.5f, 0.0f,	0.5f, 0.2f, 0.8f,	1.0f, 1.0f,
 		0.5f, -0.5f, 0.0f,	0.2f, 0.8f, 0.5f,	0.0f, 1.0f
-	};
+	};*/
 
 	GLuint sqrIndeces[] = {
 		0, 1, 2,
-		1, 2, 3
+		1, 2, 3,
 	};
 
 	fission::GraphicsData data;
-	data.addVertex3D(fission::Vertex3D(-0.5f,  0.5f, 0.0f));
-	data.addVertex3D(fission::Vertex3D(-0.5f, -0.5f, 0.0f));
-	data.addVertex3D(fission::Vertex3D( 0.5f,  0.5f, 0.0f));
-	data.addVertex3D(fission::Vertex3D( 0.5f, -0.5f, 0.0f));
+
+	data.addVertex3D(fission::Vertex3D(-16.0f / 32.0f,  16.0f / 32.0f, 0.0f));
+	data.addVertex3D(fission::Vertex3D(-16.0f / 32.0f, -16.0f / 32.0f, 0.0f));
+	data.addVertex3D(fission::Vertex3D( 16.0f / 32.0f,  16.0f / 32.0f, 0.0f));
+	data.addVertex3D(fission::Vertex3D( 16.0f / 32.0f, -16.0f / 32.0f, 0.0f));
 
 	data.addColor(fission::Color(0.5f, 0.2f, 0.8f));
 
@@ -52,8 +53,6 @@ int main(int argc, char **argv)
 	data.addTextureUV(fission::TextureUV(0.0f, 1.0f));
 
 	data.generateData();
-
-	std::cout << sizeof(GLfloat) * data.getSize() << std::endl;
 
 	GLuint VAO2;
 	glGenVertexArrays(1, &VAO2);
@@ -69,7 +68,7 @@ int main(int argc, char **argv)
 	glBindVertexArray(VAO2);
 
 		glBindBuffer(GL_ARRAY_BUFFER, vertexVBO2);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * data.getSize(), data.f_data, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, data.getSize(), data.f_data, GL_STATIC_DRAW);
 		//glBufferData(GL_ARRAY_BUFFER, sizeof(data.f_data), data.f_data, GL_STATIC_DRAW);
 /*
 		glBindBuffer(GL_ARRAY_BUFFER, colorVBO2);
@@ -105,7 +104,7 @@ int main(int argc, char **argv)
 	glm::mat4 viewMat; // View / Camera Matrix
 	glm::mat4 modelMat; // Model / Object Matrix
 
-	modelMat = glm::scale(modelMat, glm::vec3(2.0f, 2.0f, 0.0f));
+	modelMat = glm::scale(modelMat, glm::vec3(3.0f, 3.0f, 0.0f));
 	modelMat = glm::translate(modelMat, glm::vec3(0.0f, 0.0f, 5.0f));
 	viewMat = glm::translate(viewMat, glm::vec3(0.0f, 0.0f, -5.0f));
  	projectionMat= glm::perspective(glm::radians(60.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 1.0f, 100.0f);
@@ -125,7 +124,6 @@ int main(int argc, char **argv)
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
 
 		modelMat = glm::rotate(modelMat, glm::radians(0.2f), glm::vec3(0.0f, 0.0f, 0.1f));
-		modelMat = glm::rotate(modelMat, glm::radians(0.2f), glm::vec3(0.0f, 0.1f, 0.0f));
 
 #if 1
 		glBindVertexArray(VAO2);
@@ -144,6 +142,7 @@ int main(int argc, char **argv)
 #if 1
 	glDeleteVertexArrays(1, &VAO2);
 	glDeleteBuffers(1, &vertexVBO2);
+	glDeleteBuffers(1, &EBO2);
 	//glDeleteBuffers(1, &colorVBO2);
 	//glDeleteBuffers(1, &textureVBO2);
 #endif
