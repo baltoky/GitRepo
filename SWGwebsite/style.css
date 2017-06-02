@@ -1,0 +1,13 @@
+
+body{
+	background-color: lightblue;
+}
+div.aClassM8{
+	background-color: lightyellow;
+	color: yellow;
+	margin: 2px;
+}
+p.class1 {
+	color: blue;
+	border: 2px;
+}

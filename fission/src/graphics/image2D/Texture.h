@@ -8,8 +8,13 @@ namespace fission{
 		GLuint f_textureId;
 		int f_width;
 		int f_height;
+		char* f_filepath;
+		Texture2D(const char* filepath);
+		~Texture2D();
+		bool readTexture();
 		bool readTexture(const char* filepath);
 		void bind();
+		void unbind();
 	};
 
 }
