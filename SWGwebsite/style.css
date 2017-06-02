@@ -2,34 +2,58 @@
 body{
 	background-color: lightblue;
 	font-family: Verdana, Arial, Sans-Serif;
-	margin: 10px;
-	border: 10px;
+}
+div.background{
+	position: absolute;
+	display: inline-block;
+	background-color: red;
+	top: 0px;
+	left: 0px;
+}
+div.background img{
+	position: absolute;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 }
 div.TitleCard{
 	position: absolute;
+	display: inline-block;
 	background-color: lightyellow;
 	color: #B0A900;
 	margin: auto;
-	border: 10px;
+	border: 5px;
 	border-style: solid;
 	border-color: #FFF400;
+	border-radius: 2ex;
 	padding: 0 0 0 0;
+	top: 2ex;
 	width: 50%;
+	height: 15ex;
 }
 div.TitleCard p{
 	position: absolute;
+	display: inline-block;
 	left: 10ex;
-	top: 2ex;
+	top: 1ex;
 	float: left;
+	text-shadow: 1px 1px grey;
 }
 div.TitleCard img{
-	float: left;
-	width: 10ex;
-	height 10ex;
+	position: absolute;
+	display: inline-block;
+	top: -0.5ex;
+	width: 8ex;
+	height 8ex;
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 }
 p.class1 {
+	position: relative;
+	top: 24ex;
+	left: -80ex;
 	color: blue;
 	border: 2px;
+	text-shadow: 1px 1px grey;
+	line-height: 4px;
 }
+
