@@ -5,7 +5,7 @@ CC = g++
 CFLAGS = -std=c++11 -g -Wall
 
 #The Title of The exe file:
-TARG = ProjectOne.exe
+TARG = ProjectOne
 
 #The Source Code:
 SRC = src/main.cpp src/graphics/Window.cpp src/graphics/shader/shader.cpp src/graphics/shader/shaderProgram.cpp src/graphics/image2D/Texture.cpp src/graphics/image2D/GraphicsData.cpp src/graphics/image2D/Renderable.cpp
