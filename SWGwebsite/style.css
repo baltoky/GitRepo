@@ -1,11 +1,33 @@
 
 body{
 	background-color: lightblue;
+	font-family: Verdana, Arial, Sans-Serif;
+	margin: 10px;
+	border: 10px;
 }
-div.aClassM8{
+div.TitleCard{
+	position: absolute;
 	background-color: lightyellow;
-	color: yellow;
-	margin: 2px;
+	color: #B0A900;
+	margin: auto;
+	border: 10px;
+	border-style: solid;
+	border-color: #FFF400;
+	padding: 0 0 0 0;
+	width: 50%;
+}
+div.TitleCard p{
+	position: absolute;
+	left: 10ex;
+	top: 2ex;
+	float: left;
+}
+div.TitleCard img{
+	float: left;
+	width: 10ex;
+	height 10ex;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
 }
 p.class1 {
 	color: blue;
