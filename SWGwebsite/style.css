@@ -1,38 +1,27 @@
 
 body{
-	background-color: lightblue;
+	background: #FFE640 url("img/Background.png") repeat-x;
 	font-family: Verdana, Arial, Sans-Serif;
-}
-div.background{
-	position: absolute;
-	display: inline-block;
-	background-color: red;
-	top: 0px;
-	left: 0px;
-}
-div.background img{
-	position: absolute;
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
 }
 div.TitleCard{
 	position: absolute;
 	display: inline-block;
-	background-color: lightyellow;
-	color: #B0A900;
+	background: #272727 url("img/ProfPic.png") no-repeat;
 	margin: auto;
 	border: 5px;
-	border-style: solid;
-	border-color: #FFF400;
+	border-style: outset;
+	border-color: #E9E900;
 	border-radius: 2ex;
 	padding: 0 0 0 0;
-	top: 2ex;
+	top: 4ex;
+	left: 25%;
 	width: 50%;
 	height: 15ex;
 }
 div.TitleCard p{
 	position: absolute;
 	display: inline-block;
+	color: #FFFF75;
 	left: 10ex;
 	top: 1ex;
 	float: left;
@@ -41,16 +30,35 @@ div.TitleCard p{
 div.TitleCard img{
 	position: absolute;
 	display: inline-block;
-	top: -0.5ex;
+	top: -0.4ex;
 	width: 8ex;
 	height 8ex;
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 }
+
+div.SideMenu{
+	position: static;
+	max-width: 15ex;
+}
+div.SideMenu li{
+	color: pink;
+	background: yellow;
+	border: 2px solid red;
+	border-radius: 2px;
+	margin: 3px;
+}
+
+div.Content{
+	position: absolute;
+	top: 20ex;
+}
 p.class1 {
 	position: relative;
-	top: 24ex;
-	left: -80ex;
+	float: left;
+	margin: 0 0 0 0;
+	top: 50px;
+	left 20px;
 	color: blue;
 	border: 2px;
 	text-shadow: 1px 1px grey;

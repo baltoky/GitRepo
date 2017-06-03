@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 	const char* vertexShader = "./src/graphics/shader/defaultVert.glsl";
 	const char* fragmentShader = "./src/graphics/shader/defaultFrag.glsl";
 
-	fission::Window window(WIDTH, HEIGHT, (char*)title, false); // Initializes a window, which controls it's own input.
+	fission::Window window(WIDTH, HEIGHT, (char*)title, true); // Initializes a window, which controls it's own input.
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	glGenVertexArrays(1, &VAO1);
 
 	fission::Renderable sprite(glm::vec2(0.0f, 0.0f), 0.5f, 0.5f, 0.0f);
-	sprite.setTextureUV(glm::vec4(0.0f, 0.0f, 2.0f, 2.0f));
+	sprite.setTextureUV(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
 	fission::Texture2D tex("./img/SunwiredIcon.png");
 
@@ -70,7 +70,8 @@ int main(int argc, char **argv)
 		if(window.isKeyPressed(GLFW_KEY_ESCAPE))
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
 
-		modelMat = glm::rotate(modelMat, glm::radians(0.4f), glm::vec3(0.0f, 0.0f, 0.0001f));
+		if(window.isKeyPressed(GLFW_KEY_UP))
+			modelMat = glm::rotate(modelMat, glm::radians(5.0f), glm::vec3(0.0f, 0.0f, 0.0001f));
 
 		glBindVertexArray(VAO1);
 		tex.bind();
