@@ -47,6 +47,7 @@ div.SideMenu li{
 	border: 2px solid red;
 	border-radius: 2px;
 	margin: 3px;
+	font-size: 16px;
 }
 
 div.Content{
