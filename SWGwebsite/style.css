@@ -38,31 +38,45 @@ div.TitleCard img{
 }
 
 div.SideMenu{
-	position: static;
+	z-index: 1;
+	position: fixed;
+	display: block;
+	top: 10ex;
 	max-width: 15ex;
 }
 div.SideMenu li{
-	color: pink;
-	background: yellow;
-	border: 2px solid red;
-	border-radius: 2px;
-	margin: 3px;
+	list-style-type: none;
+	color: #757300;
+	background: #C6C400;
+	border: 2px solid #E9E900;
+	border-radius: 3px;
+	padding: 7px;
+	margin: 5px;
 	font-size: 16px;
 }
 
 div.Content{
 	position: absolute;
+	display: inline;
+	border: 2px solid #545300;
+	border-radius: 3px;
 	top: 20ex;
+	left: 15%;
+	background: #242300;
+	margin: auto;
+	width: 70%;
+	height: auto;
 }
-p.class1 {
-	position: relative;
-	float: left;
-	margin: 0 0 0 0;
+.class1 {
+	content: "";
+	clear: both;
+	display: table;
+	margin: 1px;
 	top: 50px;
 	left 20px;
-	color: blue;
+	color: #A09E00;
 	border: 2px;
-	text-shadow: 1px 1px grey;
-	line-height: 4px;
+	text-shadow: 1px 1px #545300;
+	line-height: 2px;
 }
 
