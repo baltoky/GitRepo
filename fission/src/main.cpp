@@ -3,6 +3,7 @@
 #include "graphics/image2D/Texture.h"
 #include "graphics/image2D/GraphicsData.h"
 #include "graphics/image2D/Renderable.h"
+#include "utilities/Utilities.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
@@ -61,6 +62,11 @@ int main(int argc, char **argv)
 	GLuint modelLocation = glGetUniformLocation(prog.f_program, "Model");
 
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMat));
+
+	fission::Log log;
+	log.setLog(fission::WarningLog, (char*)"Ich mag Apfel!");
+	log.printLog();
+	log.printLogOnFile(fission::FileAppend, "Logs.log");
 
 	while(!window.close()){
 		window.clear();
