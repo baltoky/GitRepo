@@ -14,7 +14,7 @@ namespace fission{
 			char* f_log;
 			LogT f_logType;
 		public:
-			void setLog(LogT type, char* message);
+			void setLog(LogT type, const char* message);
 			char* getLog();
 			void printLog();
 			void printLogOnFile(ManipT manipType, const char* filepath);

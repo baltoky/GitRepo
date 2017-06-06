@@ -1,9 +1,9 @@
 #include "Log.h"
 
 namespace fission{
-	void Log::setLog(LogT type, char* message){
+	void Log::setLog(LogT type, const char* message){
 		f_logType = type;
-		f_log = message;
+		f_log = (char*)message;
 	}
 
 	char* Log::getLog(){
