@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	fission::Renderable sprite(glm::vec2(0.0f, 0.0f), 0.5f, 0.5f, 0.0f);
 	sprite.setTextureUV(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 
-	fission::Texture2D tex("./img/NewSunwiredIcon.png");
+	fission::Texture2D tex("./img/NewSunwiredIcon512.png");
 
 	glBindVertexArray(VAO1);
 		sprite.init();
@@ -78,11 +78,11 @@ int main(int argc, char **argv)
 			glfwSetWindowShouldClose(window.getWindowPointer(), true);
 
 		if(window.isKeyPressed(GLFW_KEY_LEFT)){
-			if(x < 200)
+			if(x < 300)
 				x++;
 		}
 		else if(window.isKeyPressed(GLFW_KEY_RIGHT)){
-			if(x > -200)
+			if(x > -300)
 				x--;
 		}else if(x != 0){
 			if(x > 0)
