@@ -3,13 +3,13 @@
 namespace fission{
 	void FileM::startFile(ManipT type, const char* filepath){
 		switch(type){
-		case FileRead:
+		case ReadFile:
 			f_fp = fopen(filepath, "r");
 			break;
-		case FileWrite:
+		case WriteFile:
 			f_fp = fopen(filepath, "w");
 			break;
-		case FileAppend:
+		case AppendFile:
 			f_fp = fopen(filepath, "a");
 			break;
 		default:

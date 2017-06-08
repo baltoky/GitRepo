@@ -3,9 +3,9 @@
 
 namespace fission{
 	typedef enum {
-		FileRead,
-		FileWrite,
-		FileAppend
+		ReadFile,
+		WriteFile,
+		AppendFile
 	}ManipT;
 
 	class FileM{

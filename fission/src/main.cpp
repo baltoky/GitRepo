@@ -107,5 +107,5 @@ int main(int argc, char **argv)
 	}
 
 	logs.printLog();
-	logs.printLogOnFile(fission::FileWrite, "Logs.log");
+	logs.printLogOnFile(fission::WriteFile, "Logs.log");
 }
