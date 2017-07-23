@@ -7,7 +7,6 @@ namespace fission{
 	class Renderable{
 		private:
 			GLuint f_vbo;
-			GLuint f_ebo;
 			glm::vec2 f_center;
 			glm::vec4 f_textureUV;
 			short int f_textureID;

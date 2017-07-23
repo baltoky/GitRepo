@@ -16,6 +16,7 @@ namespace fission{
 		CoordinateType f_type;
 		CoordinateType getType();
 	};
+
 	struct Vertex2D : public Coordinates{
 		glm::vec2 f_vertex;
 		Vertex2D();
@@ -52,6 +53,7 @@ namespace fission{
 		std::vector<Vertex3D> f_coorVertex3D;
 		std::vector<Color> f_coorColor;
 		std::vector<TextureUV> f_coorTextureUV;
+		~GraphicsData();
 		void addVertex2D(Vertex2D vertex);
 		void addVertex3D(Vertex3D vertex);
 		void addColor(Color color);

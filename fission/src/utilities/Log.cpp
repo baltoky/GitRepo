@@ -1,49 +1,31 @@
 #include "Log.h"
 
 namespace fission{
-	void Log::setLog(LogT type, const char* message){
-		f_logType = type;
-		f_log = (char*)message;
+	void setLog(MessageLog& log, LogType type, char* message){
+		strcpy(log.f_message, "");
+		addToLog(log, type, message);
 	}
-
-	char* Log::getLog(){
-		return f_log;
+	void printLog(MessageLog& log){
+		std::cout << log.f_message << std::endl;
 	}
-
-	void Log::printLog(){
-		switch(f_logType){
+	void printLog(LogType type, char* message){
+		MessageLog log;
+		setLog(log, type, message);
+		printLog(log);
+	}
+	void addToLog(MessageLog& log, LogType type,  char* message){
+		switch(type){
 			case WarningLog:
-				std::cout << "Warning: " << std::endl;
+				strcat(log.f_message, "WARNING: ");
 				break;
 			case ErrorLog:
-				std::cout << "Error: " << std::endl;
+				strcat(log.f_message, "ERROR: ");
 				break;
 			case DebugLog:
-				std::cout << "Debug: " << std::endl;
-				break;
-			default:
+				strcat(log.f_message, "DEBUG: ");
 				break;
 		}
-		std::cout << f_log << std::endl;
+		strcat(log.f_message, message);
 	}
 
-	void Log::printLogOnFile(ManipT manipType, const char* filepath){
-		FileM file;
-		file.startFile(manipType, filepath);
-		switch(f_logType){
-			case WarningLog:
-				file.writeFile((char*)"Warning: \n");
-				break;
-			case ErrorLog:
-				file.writeFile((char*)"Error: \n");
-				break;
-			case DebugLog:
-				file.writeFile((char*)"Debug: \n");
-				break;
-			default:
-				break;
-		}
-		file.writeFile(f_log);
-		file.endFile();
-	}
 }

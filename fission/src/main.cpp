@@ -19,10 +19,9 @@ const char* TITLE = (char*)"The Little RPG";
 const char* VERTEXSHADER = "./src/graphics/shader/defaultVert.glsl";
 const char* FRAGMENTSHADER = "./src/graphics/shader/defaultFrag.glsl";
 
+
 int main(int argc, char **argv)
 {
-
-	fission::Log logs;
 
 	fission::Window window(WIDTH, HEIGHT, (char*)TITLE, false); // Initializes a window, which controls it's own input.
 
@@ -30,6 +29,11 @@ int main(int argc, char **argv)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	fission::ShaderProgram prog((char*)VERTEXSHADER, (char*)FRAGMENTSHADER); // Creates a shader program, and links the shader code.
+
+	fission::MessageLog log;
+	fission::setLog(log, fission::WarningLog, (char*)"Testing, testing.\n");
+	fission::addToLog(log, fission::WarningLog, (char*)"Another Test!\n");
+	fission::printLog(log);
 
 	// -- Start of a square's graphics --
 	GLuint VAO1;
@@ -43,13 +47,11 @@ int main(int argc, char **argv)
 	glBindVertexArray(VAO1);
 		sprite.init();
 		if(!tex.readTexture()){
-			logs.setLog(fission::ErrorLog, "The Sprite initiated incorrectly.");
+			fission::printLog(fission::ErrorLog, (char*)"Could not initiate textures correctly.");
 		}
 	glBindVertexArray(0);
 	// -- End of a square graphics --
-
-	logs.setLog(fission::WarningLog, "Just a warning");
-
+	
 	prog.useProgram();
 
 	glm::mat4 projectionMat; // Projection / Screen Matrix
@@ -69,6 +71,7 @@ int main(int argc, char **argv)
 
 	float x = 0;
 
+
 	while(!window.close()){
 		window.clear();
 
@@ -80,8 +83,7 @@ int main(int argc, char **argv)
 		if(window.isKeyPressed(GLFW_KEY_LEFT)){
 			if(x < 300)
 				x++;
-		}
-		else if(window.isKeyPressed(GLFW_KEY_RIGHT)){
+		}else if(window.isKeyPressed(GLFW_KEY_RIGHT)){
 			if(x > -300)
 				x--;
 		}else if(x != 0){
@@ -98,7 +100,7 @@ int main(int argc, char **argv)
 
 		glBindVertexArray(VAO1);
 		tex.bind();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		glBindVertexArray(0);
 		tex.unbind();
 
@@ -106,6 +108,5 @@ int main(int argc, char **argv)
 		window.update();
 	}
 
-	logs.printLog();
-	logs.printLogOnFile(fission::WriteFile, "Logs.log");
+
 }

@@ -1,22 +1,23 @@
 #pragma once
 #include <iostream>
+#include <cstring>
 #include "FileManipulation.h"
 
 namespace fission{
-	typedef enum{
+	enum LogType{
 		WarningLog,
 		ErrorLog,
 		DebugLog
-	}LogT;
-
-	class Log{
-		private:
-			char* f_log;
-			LogT f_logType;
-		public:
-			void setLog(LogT type, const char* message);
-			char* getLog();
-			void printLog();
-			void printLogOnFile(ManipT manipType, const char* filepath);
 	};
+
+	struct MessageLog{
+		char f_message[];
+	};
+
+	void setLog(MessageLog& log, LogType type, char* message);
+	void printLog(LogType type, char* message);
+	void printLog(MessageLog& log);
+	void addToLog(MessageLog& log, LogType type,  char* message);
+	//void printLogOnFile(MessageLog* log); TODO
+
 }

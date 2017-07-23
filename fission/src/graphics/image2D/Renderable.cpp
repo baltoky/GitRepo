@@ -18,38 +18,34 @@ namespace fission{
 
 	Renderable::~Renderable(){
 		glDeleteBuffers(1, &f_vbo);
-		glDeleteBuffers(1, &f_ebo);
 	}
 
 	void Renderable::init(){
 		GraphicsData data;
 
-		data.addVertex3D(Vertex3D(f_center.x - (f_width / 2.0f), f_center.y + (f_height / 2.0f), f_depth));
-		data.addVertex3D(Vertex3D(f_center.x - (f_width / 2.0f), f_center.y - (f_height / 2.0f), f_depth));
-		data.addVertex3D(Vertex3D(f_center.x + (f_width / 2.0f), f_center.y + (f_height / 2.0f), f_depth));
-		data.addVertex3D(Vertex3D(f_center.x + (f_width / 2.0f), f_center.y - (f_height / 2.0f), f_depth));
+		data.addVertex3D(Vertex3D(f_center.x - (f_width / 2.0f), f_center.y - (f_height / 2.0f), f_depth));// index: 0
+		data.addVertex3D(Vertex3D(f_center.x - (f_width / 2.0f), f_center.y + (f_height / 2.0f), f_depth));// index: 1
+		data.addVertex3D(Vertex3D(f_center.x + (f_width / 2.0f), f_center.y + (f_height / 2.0f), f_depth));// index: 2
+		data.addVertex3D(Vertex3D(f_center.x + (f_width / 2.0f), f_center.y + (f_height / 2.0f), f_depth));// index: 2
+		data.addVertex3D(Vertex3D(f_center.x + (f_width / 2.0f), f_center.y - (f_height / 2.0f), f_depth));// index: 3
+		data.addVertex3D(Vertex3D(f_center.x - (f_width / 2.0f), f_center.y - (f_height / 2.0f), f_depth));// index: 0
 
 		data.addColor(Color(1.0f, 1.0f, 1.0f));
 
-		data.addTextureUV(TextureUV(f_textureUV.x + f_textureUV.z, f_textureUV.y));
-		data.addTextureUV(TextureUV(f_textureUV.x, f_textureUV.y));
-		data.addTextureUV(TextureUV(f_textureUV.x + f_textureUV.z, f_textureUV.y + f_textureUV.w));
-		data.addTextureUV(TextureUV(f_textureUV.x, f_textureUV.y + f_textureUV.w));
+		data.addTextureUV(TextureUV(f_textureUV.x, f_textureUV.y));				   // index: 0
+		data.addTextureUV(TextureUV(f_textureUV.x, f_textureUV.y + f_textureUV.w));		   // index: 1
+		data.addTextureUV(TextureUV(f_textureUV.x + f_textureUV.z, f_textureUV.y + f_textureUV.w));// index: 2
+		data.addTextureUV(TextureUV(f_textureUV.x + f_textureUV.z, f_textureUV.y + f_textureUV.w));// index: 2
+		data.addTextureUV(TextureUV(f_textureUV.x + f_textureUV.z, f_textureUV.y));		   // index: 3
+		data.addTextureUV(TextureUV(f_textureUV.x, f_textureUV.y));				   // index: 0
 
 		data.generateData();
 
-		GLuint indeces[] = {
-			0, 1, 2,
-			1, 2, 3
-		};
-		
 		glGenBuffers(1, &f_vbo);
-		glGenBuffers(1, &f_ebo);
 
 		bind();
 
 		glBufferData(GL_ARRAY_BUFFER, data.getSize(), data.f_data, GL_STATIC_DRAW);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indeces), indeces, GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0); // The Vertex location on a Vertex shader.
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
@@ -60,6 +56,7 @@ namespace fission{
 		glEnableVertexAttribArray(2); // The Texture coordinate location on a Vertex shader.
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 
+		unbind();
 	}
 
 	void Renderable::setTextureUV(glm::vec4 textureUV){
@@ -74,12 +71,10 @@ namespace fission{
 
 	void Renderable::bind(){
 		glBindBuffer(GL_ARRAY_BUFFER, f_vbo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, f_ebo);
 	}
 
 	void Renderable::unbind(){
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 }
