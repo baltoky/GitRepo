@@ -34,6 +34,7 @@ int main(int argc, char **argv)
 	fission::setLog(log, fission::WarningLog, (char*)"Testing, testing.\n");
 	fission::addToLog(log, fission::WarningLog, (char*)"Another Test!\n");
 	fission::printLog(log);
+	fission::printLogOnFile(log, "Logs.log");
 
 	// -- Start of a square's graphics --
 	GLuint VAO1;

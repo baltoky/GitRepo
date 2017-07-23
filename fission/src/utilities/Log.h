@@ -14,10 +14,10 @@ namespace fission{
 		char f_message[];
 	};
 
-	void setLog(MessageLog& log, LogType type, char* message);
-	void printLog(LogType type, char* message);
+	void setLog(MessageLog& log, LogType type, const char* message);
+	void printLog(LogType type, const char* message);
 	void printLog(MessageLog& log);
-	void addToLog(MessageLog& log, LogType type,  char* message);
-	//void printLogOnFile(MessageLog* log); TODO
+	void addToLog(MessageLog& log, LogType type,  const char* message);
+	void printLogOnFile(MessageLog& log, const char* filepath);
 
 }
