@@ -19,5 +19,6 @@ namespace fission{
 	void printLog(MessageLog& log);
 	void addToLog(MessageLog& log, LogType type,  const char* message);
 	void printLogOnFile(MessageLog& log, const char* filepath);
+	void printLogOnFile(LogType type, const char* message, const char* filepath);
 
 }

@@ -30,12 +30,6 @@ int main(int argc, char **argv)
 
 	fission::ShaderProgram prog((char*)VERTEXSHADER, (char*)FRAGMENTSHADER); // Creates a shader program, and links the shader code.
 
-	fission::MessageLog log;
-	fission::setLog(log, fission::WarningLog, (char*)"Testing, testing.\n");
-	fission::addToLog(log, fission::WarningLog, (char*)"Another Test!\n");
-	fission::printLog(log);
-	fission::printLogOnFile(log, "Logs.log");
-
 	// -- Start of a square's graphics --
 	GLuint VAO1;
 	glGenVertexArrays(1, &VAO1);
@@ -71,7 +65,6 @@ int main(int argc, char **argv)
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projectionMat));
 
 	float x = 0;
-
 
 	while(!window.close()){
 		window.clear();
