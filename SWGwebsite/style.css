@@ -3,3 +3,13 @@ body{
 	background: #FFE640 url("img/Background.png") repeat-x;
 	font-family: Verdana, Arial, Sans-Serif;
 }
+
+#title_header{
+	font-style: italic;
+	color: rgb(255, 234, 034);
+}
+
+#options_bar{
+	color: rgb(255, 234, 034);
+	background: black;
+}
